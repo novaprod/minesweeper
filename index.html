@@ -46,7 +46,7 @@ svg{display:block}
 .screen{position:absolute;inset:0;display:none;flex-direction:column;overflow:hidden}
 .screen.active{display:flex;animation:screenin .2s ease-out}
 @keyframes screenin{from{opacity:.3;transform:translateX(12px)}to{opacity:1;transform:none}}
-.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px calc(30px + var(--sab))}
+.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;padding:16px 16px calc(30px + var(--sab))}
 .topbar{display:flex;align-items:center;gap:10px;padding:calc(10px + var(--sat)) 12px 10px;background:var(--panel);border-bottom:2px solid var(--line);position:relative}
 .topbar::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:3px;opacity:.55;background:repeating-linear-gradient(-45deg,var(--amber) 0 9px,#101216 9px 18px)}
 .topbar h2{font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:.12em}
@@ -56,7 +56,7 @@ svg{display:block}
 .hidden{display:none!important}
 
 /* menu */
-#s-menu{padding:calc(24px + var(--sat)) 20px calc(16px + var(--sab));overflow-y:auto;-webkit-overflow-scrolling:touch;position:relative}
+#s-menu{padding:calc(18px + var(--sat)) 20px calc(36px + var(--sab));overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;position:relative;min-height:100dvh;max-height:100dvh}
 .radar{position:absolute;top:-30px;right:-66px;width:230px;height:230px;border-radius:50%;border:1px solid var(--amber);opacity:.14;pointer-events:none;z-index:0}
 .radar i{position:absolute;border:1px solid var(--amber);border-radius:50%}
 .radar i:nth-child(1){inset:26%}.radar i:nth-child(2){inset:52%}
@@ -205,18 +205,18 @@ input[type=range]{flex:1;accent-color:var(--amber);height:28px}
 .world-stat{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:8px;text-align:center}
 .world-stat b{display:block;font-family:var(--mono);font-size:18px;color:var(--amber)}
 .world-stat span{font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
-.world-map-wrap{flex:1;overflow:auto;padding:14px;display:flex}
-.world-map{margin:auto;display:grid;grid-template-columns:repeat(18,28px);grid-auto-rows:28px;gap:3px}
-.wtile{border-radius:7px;background:#0c0e13;border:1px solid #202630;display:flex;align-items:center;justify-content:center;font-size:15px;position:relative;color:var(--mut)}
+.world-map-wrap{flex:1;overflow:auto;padding:12px;display:flex;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
+.world-map{margin:auto;display:grid;grid-template-columns:repeat(18,30px);grid-auto-rows:30px;gap:3px}
+.wtile{border-radius:8px;background:#0c0e13;border:1px solid #202630;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:900;font-size:15px;position:relative;color:var(--mut)}
 .wtile.seen{background:linear-gradient(160deg,var(--cell-a),var(--cell-b));border-color:var(--cell-br);color:var(--txt)}
 .wtile.fog{background:#08090c;border-color:#151922;color:transparent}
 .wtile.player{outline:2px solid var(--amber);box-shadow:0 0 16px color-mix(in srgb,var(--amber) 60%,transparent);z-index:1}
-.wtile.minezone{color:#ff8f93}.wtile.cache{color:var(--amber)}.wtile.base{color:var(--green)}.wtile.ruin{color:var(--blue)}
+.wtile.minezone{color:#ff8f93;background:#2a1d1f;border-color:#503034}.wtile.cache{color:var(--amber)}.wtile.base{color:var(--green)}.wtile.ruin{color:var(--blue)}.wtile.safe0{color:color-mix(in srgb,var(--mut) 55%,transparent)}.wtile.n1{color:#5aa2ff}.wtile.n2{color:#4cb05e}.wtile.n3{color:#ff5d63}.wtile.n4{color:#b18cff}.wtile.n5{color:#ff9c6b}.world-help{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px;background:var(--panel);border-bottom:1px solid var(--line);font-size:11px;color:var(--mut);line-height:1.35}.world-help b{color:var(--txt)}
 .world-controls{display:grid;grid-template-columns:56px 56px 56px;grid-template-rows:44px 44px 44px;gap:8px;justify-content:center;padding:12px 14px calc(14px + var(--sab));background:var(--panel);border-top:1px solid var(--line)}
 .wctrl{border:1px solid var(--line);background:var(--panel2);border-radius:12px;font-weight:900;color:var(--txt)}
 .wctrl:active{transform:scale(.94);background:var(--amber);color:#131313}
 .wctrl.up{grid-column:2}.wctrl.left{grid-column:1;grid-row:2}.wctrl.scan{grid-column:2;grid-row:2;color:var(--amber)}.wctrl.right{grid-column:3;grid-row:2}.wctrl.down{grid-column:2;grid-row:3}
-.world-log{font-size:12px;line-height:1.45;color:var(--mut);padding:9px 14px;background:var(--panel2);border-top:1px solid var(--line);min-height:48px}
+.world-log{font-size:12px;line-height:1.45;color:var(--mut);padding:9px 14px;background:var(--panel2);border-top:1px solid var(--line);min-height:48px}.world-log b{color:var(--txt)}@media (max-width:430px){.logo h1{font-size:40px}.btn{padding:12px 13px}.menu-icons{padding-bottom:6px}.world-map{grid-template-columns:repeat(18,28px);grid-auto-rows:28px}.world-stats{gap:6px}.world-help{grid-template-columns:1fr}.world-controls{grid-template-columns:64px 64px 64px;grid-template-rows:46px 46px 46px}.ctrlbar{padding-bottom:calc(16px + var(--sab))}}@media (max-height:720px){#s-menu{padding-top:calc(12px + var(--sat))}.logo{margin-bottom:10px}.logo h1{font-size:34px}.stripe-bar{margin-top:10px}.rank,.menu-brief{margin-bottom:10px}.menu-btns{gap:8px}.btn{padding-top:10px;padding-bottom:10px}.btn .bico{width:30px;height:30px}.menu-foot{margin-top:10px}}
 
 /* flash centrale */
 #flash{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:35;opacity:0}
@@ -364,9 +364,10 @@ table.stats td:first-child{font-family:inherit;font-weight:700}
 <div class="screen" id="s-world">
   <div class="topbar"><button class="icon-btn back" data-ic="back"></button><h2>Open World</h2><button class="icon-btn" id="w-reset" data-ic="restart"></button></div>
   <div class="world-shell">
-    <div class="world-stats"><div class="world-stat"><b id="w-explore">0%</b><span>Esplorato</span></div><div class="world-stat"><b id="w-cache">0/0</b><span>Cache</span></div><div class="world-stat"><b id="w-danger">0</b><span>Pericolo</span></div></div>
+    <div class="world-stats"><div class="world-stat"><b id="w-explore">0%</b><span>Esplorato</span></div><div class="world-stat"><b id="w-cache">0/0</b><span>Cache</span></div><div class="world-stat"><b id="w-danger">0</b><span>Errori mine</span></div></div>
+    <div class="world-help"><span><b>Numeri = mine vicine</b>: muoviti come nel Campo Minato.</span><span><b>Tocca una casella adiacente</b> oppure usa le frecce. SCAN rivela indizi.</span></div>
     <div class="world-map-wrap"><div class="world-map" id="world-map"></div></div>
-    <div class="world-log" id="world-log">Muoviti nella zona contaminata. Le caselle vicine si rivelano mentre esplori.</div>
+    <div class="world-log" id="world-log">Parti dalla base: i numeri indicano quante mine toccano quel settore.</div>
     <div class="world-controls"><button class="wctrl up" data-move="0,-1">▲</button><button class="wctrl left" data-move="-1,0">◀</button><button class="wctrl scan" id="w-scan">SCAN</button><button class="wctrl right" data-move="1,0">▶</button><button class="wctrl down" data-move="0,1">▼</button></div>
   </div>
 </div>
@@ -1049,15 +1050,35 @@ $('g-back').addEventListener('click',()=>{sfx.click();if(G&&G.state==='play'){pa
 /* ---------------- open world ---------------- */
 const WORLD_W=18,WORLD_H=18;
 let W=null;
-function defaultWorld(){return{x:9,y:9,seen:{},cache:{},danger:0,steps:0,seed:hashStr('world-v1')}}
+function defaultWorld(){return{x:9,y:9,seen:{},cache:{},tripped:{},danger:0,steps:0,seed:hashStr('world-v2')}}
 function wKey(x,y){return x+','+y;}
-function wTile(x,y){const r=mulberry32(hashStr('w:'+x+','+y+':'+(W?W.seed:1)))();if(x===9&&y===9)return'base';if(r<.08)return'minezone';if(r<.14)return'cache';if(r<.22)return'ruin';if(r<.36)return'forest';return'plain';}
-function ensureWorld(){W=D.world||defaultWorld();revealAround(W.x,W.y,1);D.world=W;persist();}
+function wRand(x,y,salt){return mulberry32(hashStr('w2:'+salt+':'+x+','+y+':'+(W?W.seed:1)))();}
+function wIsMine(x,y){if(x===9&&y===9)return false;return wRand(x,y,'mine')<.155;}
+function wNum(x,y){let n=0;for(let yy=y-1;yy<=y+1;yy++)for(let xx=x-1;xx<=x+1;xx++)if(!(xx===x&&yy===y)&&xx>=0&&yy>=0&&xx<WORLD_W&&yy<WORLD_H&&wIsMine(xx,yy))n++;return n;}
+function wFeature(x,y){if(x===9&&y===9)return'base';if(wIsMine(x,y))return'minezone';const r=wRand(x,y,'feature');if(r<.075)return'cache';if(r<.14)return'ruin';return'plain';}
+function ensureWorld(){W=D.world||defaultWorld();if(!W.tripped)W.tripped={};if(!W.cache)W.cache={};if(!W.seen)W.seen={};revealAround(W.x,W.y,1);D.world=W;persist();}
 function revealAround(x,y,rad){for(let yy=y-rad;yy<=y+rad;yy++)for(let xx=x-rad;xx<=x+rad;xx++)if(xx>=0&&yy>=0&&xx<WORLD_W&&yy<WORLD_H)W.seen[wKey(xx,yy)]=1;}
-function renderWorld(){ensureWorld();const m=$('world-map');let html='';let seen=0,total=WORLD_W*WORLD_H,caches=0,found=Object.keys(W.cache).length;for(let y=0;y<WORLD_H;y++)for(let x=0;x<WORLD_W;x++){const k=wKey(x,y),isSeen=!!W.seen[k],t=wTile(x,y);if(isSeen)seen++;if(t==='cache')caches++;let sym={base:'⌂',minezone:'✹',cache:'◆',ruin:'⌁',forest:'♣',plain:'·'}[t];html+=`<div class="wtile ${isSeen?'seen '+t:'fog'} ${x===W.x&&y===W.y?'player':''}">${isSeen?sym:''}</div>`;}m.innerHTML=html;$('w-explore').textContent=Math.round(seen/total*100)+'%';$('w-cache').textContent=found+'/'+caches;$('w-danger').textContent=W.danger;$('brief-world')&&($('brief-world').textContent=Math.round(seen/total*100)+'%');$('world-sub')&&($('world-sub').textContent=`${Math.round(seen/total*100)}% esplorato · ${found}/${caches} cache`);}
-function enterWorld(){ensureWorld();go('s-world');renderWorld();}
-function worldMove(dx,dy){ensureWorld();const nx=Math.max(0,Math.min(WORLD_W-1,W.x+dx)),ny=Math.max(0,Math.min(WORLD_H-1,W.y+dy));if(nx===W.x&&ny===W.y)return;W.x=nx;W.y=ny;W.steps++;revealAround(nx,ny,1);const t=wTile(nx,ny),k=wKey(nx,ny);let msg='Settore esplorato.';if(t==='cache'&&!W.cache[k]){W.cache[k]=1;awardXP(10,'cache');msg='Cache recuperata: +10 XP e nuove coordinate segnate.';sfx.win();}else if(t==='minezone'){W.danger++;msg='Zona minata: rumori sotto la sabbia. Pericolo +1.';sfx.nope();vib(35);}else if(t==='ruin')msg='Rovine trovate: vecchi cartelli indicano una via sicura.';else if(t==='base')msg='Sei tornato alla base operativa.';else if(t==='forest')msg='Area coperta: visibilità ridotta, procedi piano.';$('world-log').textContent=msg;D.world=W;persist();renderWorld();}
-function worldScan(){ensureWorld();revealAround(W.x,W.y,2);W.danger=Math.max(0,W.danger-1);$('world-log').textContent='Scanner attivo: nebbia diradata in un raggio più ampio.';sfx.sonar();D.world=W;persist();renderWorld();}
+function worldTileLabel(x,y,t,isSeen,k){
+  if(!isSeen)return'';
+  if(t==='base')return'⌂';
+  if(t==='cache')return W.cache[k]?'✓':'◆';
+  if(t==='ruin')return'⌁';
+  if(t==='minezone')return W.tripped[k]?'✹':'?';
+  const n=wNum(x,y);return n?n:'·';
+}
+function renderWorld(){
+  ensureWorld();const m=$('world-map');let html='',seen=0,total=WORLD_W*WORLD_H,caches=0,found=Object.keys(W.cache).length;
+  for(let y=0;y<WORLD_H;y++)for(let x=0;x<WORLD_W;x++){
+    const k=wKey(x,y),isSeen=!!W.seen[k],t=wFeature(x,y);if(isSeen)seen++;if(t==='cache')caches++;
+    const n=t==='plain'?wNum(x,y):0, numClass=t==='plain'?(n?'n'+n:'safe0'):'';
+    html+=`<button class="wtile ${isSeen?'seen '+t+' '+numClass:'fog'} ${x===W.x&&y===W.y?'player':''}" data-x="${x}" data-y="${y}" aria-label="settore ${x},${y}">${worldTileLabel(x,y,t,isSeen,k)}</button>`;
+  }
+  m.innerHTML=html;$('w-explore').textContent=Math.round(seen/total*100)+'%';$('w-cache').textContent=found+'/'+caches;$('w-danger').textContent=W.danger;$('brief-world')&&($('brief-world').textContent=Math.round(seen/total*100)+'%');$('world-sub')&&($('world-sub').textContent=`${Math.round(seen/total*100)}% esplorato · ${found}/${caches} cache · logica mine`);
+}
+function enterWorld(){ensureWorld();go('s-world');$('world-log').innerHTML='Leggi i numeri come nel gioco classico: indicano le <b>mine adiacenti</b>. Evita i settori sospetti.';renderWorld();}
+function worldMove(dx,dy){ensureWorld();const nx=Math.max(0,Math.min(WORLD_W-1,W.x+dx)),ny=Math.max(0,Math.min(WORLD_H-1,W.y+dy));if(nx===W.x&&ny===W.y)return;W.x=nx;W.y=ny;W.steps++;revealAround(nx,ny,1);const t=wFeature(nx,ny),k=wKey(nx,ny);let msg='Settore sicuro: numero '+(wNum(nx,ny)||'zero')+' mine vicine.';if(t==='cache'&&!W.cache[k]){W.cache[k]=1;awardXP(10,'cache');msg='Cache recuperata: +10 XP. I numeri attorno restano i tuoi indizi.';sfx.win();}else if(t==='minezone'){if(!W.tripped[k]){W.tripped[k]=1;W.danger++;}msg='<b>Mina!</b> Settore esploso: errore registrato. Usa i numeri per evitare la prossima.';sfx.boom();vib([45,40,80]);}else if(t==='ruin')msg='Rovine trovate: punto sicuro. Guarda i numeri intorno per pianificare la strada.';else if(t==='base')msg='Base operativa: zona sicura, riparti dai numeri visibili.';$('world-log').innerHTML=msg;D.world=W;persist();renderWorld();}
+function worldScan(){ensureWorld();revealAround(W.x,W.y,2);$('world-log').innerHTML='SCAN: rivelato un raggio più ampio. Le <b>?</b> sono mine non calpestate, i numeri sono indizi reali.';sfx.sonar();D.world=W;persist();renderWorld();}
+$('world-map').addEventListener('click',e=>{const t=e.target.closest('.wtile');if(!t)return;const x=+t.dataset.x,y=+t.dataset.y;if(Math.abs(x-W.x)+Math.abs(y-W.y)!==1){toast('Tocca una casella adiacente al giocatore');return;}worldMove(x-W.x,y-W.y);});
 /* ============================================================
    SCHERMATE
    ============================================================ */
