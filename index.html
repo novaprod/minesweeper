@@ -22,6 +22,7 @@
 body[data-theme="reactor"]{--bg:#0c120e;--panel:#131b15;--panel2:#1a251d;--line:#26382b;--amber:#55e07c;--amber-dk:#2f8f4e;--amber-soft:#173322;--cell-a:#25402d;--cell-b:#1c3023;--cell-rev:#111a14;--cell-br:#345239;--cell-bd:#152218;--txt:#e6f3e9;--mut:#87a08d}
 body[data-theme="blueprint"]{--bg:#0b1220;--panel:#111b2c;--panel2:#182437;--line:#243a56;--amber:#57b1ff;--amber-dk:#2e6ea8;--amber-soft:#152a44;--cell-a:#27405e;--cell-b:#1d3049;--cell-rev:#101a2a;--cell-br:#365574;--cell-bd:#16233a;--txt:#e7eefa;--mut:#8598b3}
 body[data-theme="neon"]{--bg:#140d18;--panel:#1c1322;--panel2:#26192e;--line:#3c2749;--amber:#ff5fa8;--amber-dk:#a83a71;--amber-soft:#341530;--cell-a:#3c2a4a;--cell-b:#2c1f38;--cell-rev:#190f20;--cell-br:#4e3763;--cell-bd:#201530;--txt:#f4e9f2;--mut:#a18ba6}
+body[data-theme="cute"]{--bg:#fff6f8;--panel:#fffafd;--panel2:#ffe9f1;--line:#f0c7d6;--amber:#ff79a8;--amber-dk:#d84f81;--amber-soft:#ffe0eb;--cell-a:#ffd9e7;--cell-b:#f8c7dc;--cell-rev:#fff8fb;--cell-br:#ffffff;--cell-bd:#e9acc5;--txt:#49313c;--mut:#9b6b7e}
 body[data-theme="ember"]{--bg:#160f0c;--panel:#211511;--panel2:#2c1c16;--line:#452a20;--amber:#ff8a3d;--amber-dk:#b45a22;--amber-soft:#3a2113;--cell-a:#4a2f22;--cell-b:#38231a;--cell-rev:#1c110c;--cell-br:#5c3a28;--cell-bd:#241610;--txt:#f6eae2;--mut:#a99188}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 html,body{height:100%;overscroll-behavior:none}
@@ -113,8 +114,8 @@ svg{display:block}
 .brief-card::after{content:"";position:absolute;right:-22px;bottom:-22px;width:70px;height:70px;border-radius:50%;background:var(--amber);opacity:.08}
 .brief-card b{font-size:18px;color:var(--amber);font-family:var(--mono)}
 .brief-card span{font-size:11px;line-height:1.35;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
-.btn.openworld{border-color:var(--amber-dk);background:linear-gradient(120deg,color-mix(in srgb,var(--amber) 18%,var(--panel)),var(--panel) 62%)}
-.btn.openworld::before{content:"NEW";position:absolute;right:12px;top:10px;font-family:var(--mono);font-size:9px;color:#131313;background:var(--amber);padding:3px 6px;border-radius:99px;font-weight:900}
+.btn.openworld,.btn.story{border-color:var(--amber-dk);background:linear-gradient(120deg,color-mix(in srgb,var(--amber) 18%,var(--panel)),var(--panel) 62%)}
+.btn.openworld::before,.btn.story::before{content:"NEW";position:absolute;right:12px;top:10px;font-family:var(--mono);font-size:9px;color:#131313;background:var(--amber);padding:3px 6px;border-radius:99px;font-weight:900}
 
 /* carte / picker */
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
@@ -187,6 +188,7 @@ input[type=range]{flex:1;accent-color:var(--amber);height:28px}
 .cell.ping::after{content:"";position:absolute;inset:2px;border:2px solid var(--green);border-radius:5px;animation:pulse .55s 5}
 @keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}
 .n1{color:#5aa2ff}.n2{color:#4cb05e}.n3{color:#ff5d63}.n4{color:#b18cff}.n5{color:#ff9c6b}.n6{color:#35b9ab}.n7{color:var(--txt)}.n8{color:var(--amber)}
+.zoom-pill{display:flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:4px 6px}.zoom-pill button{width:34px;height:34px;border-radius:10px;background:var(--panel);font-weight:900;color:var(--amber)}.zoom-pill b{font-family:var(--mono);font-size:11px;color:var(--mut);min-width:34px;text-align:center}.turn-card{margin:0 14px 8px;padding:8px 12px;border-radius:13px;background:linear-gradient(90deg,var(--panel2),color-mix(in srgb,var(--amber) 12%,var(--panel2)));border:1px solid var(--line);font-family:var(--mono);font-size:12px;text-align:center;color:var(--mut)}.turn-card b{color:var(--amber)}
 .ctrlbar{display:flex;gap:10px;padding:10px 14px calc(12px + var(--sab));background:var(--panel);border-top:1px solid var(--line)}
 .sonar-btn{flex:0 0 56px;border-radius:14px;border:1px solid var(--line);background:var(--panel2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--txt)}
 .sonar-btn .ic{width:22px;height:22px;color:var(--amber)}
@@ -319,6 +321,9 @@ table.stats td:first-child{font-family:inherit;font-weight:700}
     <button class="btn resume hidden" id="b-resume"><span class="bico" data-ic="play"></span><span class="bt">Riprendi partita<span class="sub" id="resume-sub"></span></span></button>
     <button class="btn primary" id="b-classic"><span class="bico" data-ic="dig"></span><span class="bt">Classica<span class="sub">Facile · Medio · Difficile · Custom</span></span><span class="chev" data-ic="chev"></span></button>
     <button class="btn" id="b-shapes"><span class="bico" data-ic="shapes"></span><span class="bt">Sagome<span class="sub" id="shapes-sub">Campi più leggibili: spirale, forte, cuore…</span></span><span class="chev" data-ic="chev"></span></button>
+    <button class="btn story" id="b-story"><span class="bico" data-ic="crown"></span><span class="bt">Storia<span class="sub" id="story-sub">Viaggio cute tra 18 livelli artigianali</span></span><span class="chev" data-ic="chev"></span></button>
+    <button class="btn" id="b-duel"><span class="bico" data-ic="target"></span><span class="bt">2 Giocatori 1v1<span class="sub">Passa il telefono: chi bonifica meglio vince</span></span></button>
+    <button class="btn" id="b-chill"><span class="bico" data-ic="zen"></span><span class="bt">Chill<span class="sub">Zen cute, zero stress, grandi celle mobile</span></span></button>
     <button class="btn openworld" id="b-world"><span class="bico" data-ic="scope"></span><span class="bt">Open World<span class="sub" id="world-sub">Esplora la zona, scopri settori e recupera cache</span></span><span class="chev" data-ic="chev"></span></button>
     <button class="btn" id="b-blitz"><span class="bico" data-ic="bolt"></span><span class="bt">Blitz<span class="sub" id="blitz-sub">Quanti campi bonifichi in 3 minuti?</span></span></button>
     <button class="btn" id="b-surv"><span class="bico" data-ic="shield"></span><span class="bt">Sopravvivenza<span class="sub" id="surv-sub">Livelli infiniti · 3 vite</span></span></button>
@@ -360,6 +365,12 @@ table.stats td:first-child{font-family:inherit;font-weight:700}
   </div>
 </div>
 
+<!-- ================= STORIA ================= -->
+<div class="screen" id="s-story">
+  <div class="topbar"><button class="icon-btn back" data-ic="back"></button><h2>Storia</h2></div>
+  <div class="scroll"><div class="section-label">Diario della piccola artificiera</div><div id="story-list"></div></div>
+</div>
+
 <!-- ================= OPEN WORLD ================= -->
 <div class="screen" id="s-world">
   <div class="topbar"><button class="icon-btn back" data-ic="back"></button><h2>Open World</h2><button class="icon-btn" id="w-reset" data-ic="restart"></button></div>
@@ -383,8 +394,10 @@ table.stats td:first-child{font-family:inherit;font-weight:700}
   </div>
   <div id="g-progress"><i></i></div>
   <div id="daily-banner" class="hidden">Sfida del giorno · parti dalla cella evidenziata</div>
+  <div id="turn-card" class="turn-card hidden"></div>
   <div class="board-outer" id="board-outer"><div class="board" id="board"></div></div>
   <div class="ctrlbar">
+    <div class="zoom-pill"><button id="z-out" aria-label="Zoom meno">−</button><b id="z-lab">100%</b><button id="z-in" aria-label="Zoom più">+</button></div>
     <button class="sonar-btn" id="g-sonar"><span class="ic" data-ic="sonar"></span><small>SONAR</small></button>
     <div class="mode-btn" id="g-mode">
       <div class="mode-half on" data-tool="dig"><span class="ic" data-ic="dig"></span>Scava</div>
@@ -415,6 +428,9 @@ table.stats td:first-child{font-family:inherit;font-weight:700}
     <p><b>Sagome</b> — stesso gioco, ma su campi <b>non rettangolari</b>: cuore, cerchio, anello, croce, esagono, triangolo, diamante, clessidra. Le celle fuori sagoma non esistono e non contano tra i vicini. Bonificale tutte per completare la collezione.</p>
     <p><b>Blitz</b> — 3 minuti. Ogni campo 8×8 bonificato: <b>+20s</b>. Ogni mina toccata: <b>−30s</b> (disinnescata, si continua).</p>
     <p><b>Sopravvivenza</b> — livelli sempre più grandi e minati. <b>3 vite</b>: una mina ne costa una ma viene disinnescata. Ogni 3 livelli recuperi una vita.</p>
+    <p><b>Storia</b> — 18 livelli progressivi con stelle e capitoli sbloccabili: una campagna completa per sessioni brevi da telefono.</p>
+    <p><b>2 Giocatori 1v1</b> — passatevi lo stesso telefono: ogni cella sicura dà punti, ogni mina pesa nel riepilogo finale.</p>
+    <p><b>Chill</b> — versione cute e leggibile del training: celle più grandi, nessuna sconfitta, ritmo morbido.</p>
     <p><b>Zen</b> — nessun cronometro e <b>impossibile perdere</b>: se tocchi una mina, niente esplosione, solo un avviso. Per allenare la logica senza stress.</p>
     <p><b>Sfida del giorno</b> — un campo fisso dalla data, uguale tutto il giorno. Tieni viva la serie.</p>
     <div class="section-label">Gradi</div>
@@ -463,7 +479,7 @@ table.stats td:first-child{font-family:inherit;font-weight:700}
 'use strict';
 /* ============================================================
    CAMPO MINATO v3 — single file
-   Modalità: Classica · Sagome · Blitz · Sopravvivenza · Zen · Giornaliera
+   Modalità: Classica · Storia · 2P · Chill · Sagome · Blitz · Sopravvivenza · Zen · Giornaliera
    Campi non rettangolari via maschera · icone SVG · XP/gradi
    ============================================================ */
 
@@ -531,7 +547,7 @@ function defaultData(){return{
   stats:{}, modes:{blitz:{runs:0,best:0,boards:0},surv:{runs:0,best:0},zen:{done:0}},
   global:{revealed:0,flags:0,exploded:0,played:0,wins:0,time:0},
   xp:0, ach:{}, shapesDone:{}, daily:{done:{}},
-  custom:{rows:12,cols:10,mines:20}, world:null, save:null
+  custom:{rows:12,cols:10,mines:20}, story:{unlocked:1,stars:{}}, world:null, save:null
 };}
 let D=defaultData();
 try{
@@ -649,11 +665,12 @@ const DIFFS={
   hard:{name:'Difficile',rows:18,cols:14,mines:55},
   custom:{name:'Custom'}, daily:{name:'Sfida del giorno',rows:13,cols:11,mines:24},
   blitz:{name:'Blitz',rows:8,cols:8,mines:10}, surv:{name:'Sopravvivenza'},
-  zen:{name:'Zen',rows:12,cols:10,mines:18}, shapes:{name:'Sagome'}
+  zen:{name:'Zen',rows:12,cols:10,mines:18}, chill:{name:'Chill',rows:10,cols:9,mines:12}, duel:{name:'2 Giocatori',rows:10,cols:9,mines:14}, shapes:{name:'Sagome'}
 };
 const BLITZ_START=180,BLITZ_BONUS=20,BLITZ_PENALTY=30,BLITZ_SONAR=15;
 function survDims(L){const cols=Math.min(7+Math.floor((L-1)/2),12);const rows=Math.min(8+Math.ceil((L-1)/2),16);const dens=Math.min(.10+(L-1)*.012,.24);return{rows,cols,mines:Math.max(5,Math.round(rows*cols*dens))};}
-const XP={easy:15,medium:35,hard:80,daily:40,shape:50,shapeFirst:30,blitzBoard:12,zen:20};
+const XP={easy:15,medium:35,hard:80,daily:40,shape:50,shapeFirst:30,blitzBoard:12,zen:20,chill:18,story:25};
+const STORY=Array.from({length:18},(_,i)=>({id:i+1,name:['Prato Fragola','Molo delle Lucciole','Tetto dei Gatti','Serra Lunare','Miniera Pastello','Biblioteca Nebbia','Isola Bottone','Forte Biscotto','Treno delle Api','Giardino Neon','Porto Nuvola','Castello Micio','Fabbrica Stelle','Laguna Corallo','Tempio Bonsai','Cratere Latte','Città Caramella','Ultimo Picnic'][i],rows:8+Math.floor(i/3),cols:8+Math.floor(i/4),mines:8+i*2,brief:'Livello '+(i+1)+' · una piccola scena da bonificare con calma.'}));
 function survXP(L){return 6*L;}
 
 const ACH=[
@@ -685,7 +702,7 @@ function toast(txt){const t=document.createElement('div');t.className='toast';t.
 function flash(main,small){$('flash-txt').innerHTML=main+(small?'<small>'+small+'</small>':'');const f=$('flash');f.classList.remove('on');void f.offsetWidth;f.classList.add('on');}
 
 /* ---------------- NAVIGAZIONE ---------------- */
-function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));if(id==='s-menu')renderMenu();if(id==='s-diff')renderDiff();if(id==='s-shapes')renderShapes();if(id==='s-stats')renderStats();if(id==='s-set')renderSettings();if(id==='s-world')renderWorld();}
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));if(id==='s-menu')renderMenu();if(id==='s-diff')renderDiff();if(id==='s-shapes')renderShapes();if(id==='s-stats')renderStats();if(id==='s-set')renderSettings();if(id==='s-world')renderWorld();if(id==='s-story')renderStory();}
 document.querySelectorAll('.back').forEach(b=>b.addEventListener('click',()=>{sfx.click();go('s-menu');}));
 
 /* ---------------- CONFERMA ---------------- */
@@ -724,13 +741,18 @@ function boardReset(rows,cols,mines,maskFn){
 function newGame(mode,key){
   G=baseRun(mode,key);
   let dims,maskFn=null;
+  G.zoom=(mode==='chill')?1.15:1;
   if(mode==='shapes'){const sh=shapeById(key);let active=0;const mk=shapeMask(sh.fn);for(let r=0;r<sh.R;r++)for(let c=0;c<sh.C;c++)if(mk(r,c,sh.R,sh.C))active++;dims={rows:sh.R,cols:sh.C,mines:Math.round(active*sh.ratio)};maskFn=mk;}
+  else if(mode==='story'){const lv=STORY[key-1];dims={rows:lv.rows,cols:lv.cols,mines:lv.mines};}
+  else if(mode==='duel'){dims=DIFFS.duel;G.p2={turn:0,score:[0,0],hits:[0,0]};}
+  else if(mode==='chill'){dims=DIFFS.chill;G.zen=true;}
   else if(mode==='surv')dims=survDims(1);
   else if(key==='custom')dims=D.custom;
   else dims=DIFFS[key];
   boardReset(dims.rows,dims.cols,dims.mines,maskFn);
   if(G.daily){const rng=mulberry32(hashStr('mine-'+G.dailyDate));do{G.hintIdx=Math.floor(rng()*G.N);}while(!G.mask[G.hintIdx]);placeMines(G.hintIdx,rng);if(!G.rev[G.hintIdx])cellEls[G.hintIdx].classList.add('hint');}
   $('daily-banner').classList.toggle('hidden',!G.daily);
+  updateTurnCard();
   setTool('dig');updateHudTitle();updateHud();go('s-game');
   if(mode==='blitz'||mode==='surv'){G.state='play';startTimer();}
 }
@@ -742,7 +764,9 @@ function updateHudTitle(){
   else if(G.mode==='daily'){t1='Sfida del giorno';t2=G.dailyDate;}
   else if(G.mode==='blitz'){t1='Blitz';t2='campo '+(G.boards+1)+(D.modes.blitz.best?' · record '+D.modes.blitz.best:'');}
   else if(G.mode==='surv'){t1='Livello '+G.level;t2=livesHtml();}
-  else if(G.mode==='zen'){t1='Zen';t2='rilassati, non puoi perdere';}
+  else if(G.mode==='zen'||G.mode==='chill'){t1=G.mode==='chill'?'Chill':'Zen';t2='rilassati, non puoi perdere';}
+  else if(G.mode==='duel'){t1='Duello 1v1';t2='P'+(G.p2.turn+1)+' di turno · '+G.p2.score[0]+'-'+G.p2.score[1]+' safe';}
+  else if(G.mode==='story'){const lv=STORY[G.key-1];t1='Storia '+G.key; t2=lv.name+' · '+lv.brief;}
   $('g-diff').textContent=t1;$('g-sub').innerHTML=t2;
 }
 function activeNeighbors(i,cb){const r=Math.floor(i/G.cols),c=i%G.cols;for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){if(!dr&&!dc)continue;const nr=r+dr,nc=c+dc;if(nr<0||nc<0||nr>=G.rows||nc>=G.cols)continue;const j=nr*G.cols+nc;if(G.mask[j])cb(j);}}
@@ -773,7 +797,9 @@ function fitCells(){
   let cs=Math.floor((avail-(G.cols-1)*3)/G.cols);
   const csH=Math.floor((availH-(G.rows-1)*3)/G.rows);if(csH>0)cs=Math.min(cs,csH);
   cs=Math.min(cs,cap);if(cs<23)cs={s:24,m:28,l:34}[D.settings.cell]||28;
+  cs=Math.round(cs*(G.zoom||1));
   boardEl.style.setProperty('--cs',cs+'px');
+  if($('z-lab'))$('z-lab').textContent=Math.round((G.zoom||1)*100)+'%';
 }
 window.addEventListener('resize',()=>{if(G&&$('s-game').classList.contains('active'))fitCells();});
 function drawCell(i,depth){
@@ -811,10 +837,11 @@ function reveal(i){
   if(!G.mask[i]||G.rev[i]||G.flag[i])return;
   if(!G.started){if(!G.daily)placeMines(i);G.started=true;if(G.state==='ready'){G.state='play';startTimer();}if(G.daily&&G.hintIdx>=0)cellEls[G.hintIdx].classList.remove('hint');updateSonarBtn();}
   if(G.mine[i]){hitMine(i);return;}
-  const q=[[i,0]];G.rev[i]=1;const toDraw=[];
+  const q=[[i,0]];G.rev[i]=1;const toDraw=[];let before=G.revealed;
   while(q.length){const [cur,d]=q.shift();G.revealed++;D.global.revealed++;toDraw.push([cur,d]);
     if(G.num[cur]===0)neighbors(cur,j=>{if(!G.rev[j]&&!G.flag[j]&&!G.mine[j]){G.rev[j]=1;q.push([j,d+1]);}});}
   toDraw.forEach(([c,d])=>drawCell(c,d));
+  if(G.mode==='duel'&&G.p2){G.p2.score[G.p2.turn]+=G.revealed-before;G.p2.turn=1-G.p2.turn;updateHudTitle();updateTurnCard();}
   sfx.reveal();setProgress();checkWin();
   if(G&&G.state==='play')saveGame();
 }
@@ -849,14 +876,18 @@ function useSonar(){
   if(G.mode==='blitz'&&blitzLeft()<=0)runOver('timeout');
 }
 $('g-sonar').addEventListener('click',useSonar);
+$('z-in').addEventListener('click',()=>{if(!G)return;G.zoom=Math.min(1.9,(G.zoom||1)+.1);fitCells();});
+$('z-out').addEventListener('click',()=>{if(!G)return;G.zoom=Math.max(.75,(G.zoom||1)-.1);fitCells();});
 
 /* ---------------- mina colpita ---------------- */
 function hitMine(i){
   D.global.exploded++;if(D.global.exploded>=10)unlock('boom10');
+  if(G.mode==='duel'&&G.p2){G.p2.hits[G.p2.turn]++;G.p2.turn=1-G.p2.turn;updateHudTitle();updateTurnCard();G.rev[i]=1;G.defused++;drawCell(i);cellEls[i].classList.add('defused');burstAtCell(i);sfx.defuse();vib([30,30,30]);checkWin();return;}
   if(G.zen){zenPeek(i);return;}
   if(G.mode==='blitz'||G.mode==='surv'){defuse(i);return;}
   explode(i);
 }
+function updateTurnCard(){const el=$('turn-card');if(!G||G.mode!=='duel'){el.classList.add('hidden');return;}el.classList.remove('hidden');el.innerHTML='<b>Passa il telefono</b> · turno P'+(G.p2.turn+1)+' · safe '+G.p2.score[0]+'-'+G.p2.score[1]+' · mine '+G.p2.hits[0]+'-'+G.p2.hits[1];}
 function zenPeek(i){
   const el=cellEls[i];el.classList.add('peek');el.innerHTML=icon('mine');
   sfx.nope();vib(30);
@@ -894,7 +925,9 @@ function checkWin(){
   if(G.mode==='surv'){survLevelClear();return;}
   G.state='won';pauseTimer();D.save=null;
   sfx.win();vib([25,40,25,40,60]);fx.confetti();
-  if(G.mode==='zen'){D.modes.zen.done++;awardXP(XP.zen);if(D.modes.zen.done>=5)unlock('zen5');persist();updateSonarBtn();setTimeout(()=>showEnd('zen'),650);return;}
+  if(G.mode==='story'){recordStoryEnd();updateSonarBtn();setTimeout(()=>showEnd('story'),650);return;}
+  if(G.mode==='duel'){pauseTimer();D.save=null;sfx.win();fx.confetti();updateSonarBtn();setTimeout(()=>showEnd('duel'),650);return;}
+  if(G.mode==='zen'||G.mode==='chill'){D.modes.zen.done++;awardXP(G.mode==='chill'?XP.chill:XP.zen);if(D.modes.zen.done>=5)unlock('zen5');persist();updateSonarBtn();setTimeout(()=>showEnd('zen'),650);return;}
   if(G.mode==='shapes')recordShapeEnd();else recordClassicEnd(true);
   updateSonarBtn();setTimeout(()=>showEnd(G.mode==='shapes'?'shape':'win'),650);
 }
@@ -939,6 +972,7 @@ function recordClassicEnd(win){
   if(rankInfo(D.xp).idx>=4)unlock('rank4');
   persist();
 }
+function recordStoryEnd(){const t=curElapsed(), lv=G.key;lastRecord=false;lastXP=XP.story+lv*3;D.story=D.story||{unlocked:1,stars:{}};D.story.stars[lv]=Math.max(D.story.stars[lv]||0, t<90?3:t<180?2:1);D.story.unlocked=Math.max(D.story.unlocked||1, Math.min(STORY.length,lv+1));D.global.played++;D.global.wins++;D.global.time+=t;awardXP(lastXP);persist();}
 function recordShapeEnd(){
   const t=curElapsed(),k='shape_'+G.key,s=statFor(k);
   s.played++;s.wins++;D.global.played++;D.global.wins++;D.global.time+=t;s.winTime+=t;
@@ -967,6 +1001,8 @@ function showEnd(kind){
     if(G.daily)rows.push(['Sfide completate',Object.keys(D.daily.done).length]);}
   else if(kind==='shape'){const s=statFor('shape_'+G.key);stripe='green';ic='shapes';title=shapeById(G.key).name.toUpperCase()+' FATTO';
     rows=[['Tempo',fmtTime(t)],['Miglior tempo',fmtTime(s.best)],['Sagome bonificate',Object.keys(D.shapesDone).length+' / '+SHAPES.length],['XP guadagnati','+'+lastXP,'xp']];}
+  else if(kind==='story'){stripe='green';ic='crown';title='CAPITOLO BONIFICATO';const lv=STORY[G.key-1];rows=[['Capitolo',G.key+' · '+lv.name],['Stelle',D.story.stars[G.key]+' / 3'],['Sbloccato fino a',D.story.unlocked],['XP guadagnati','+'+lastXP,'xp']];}
+  else if(kind==='duel'){stripe='green';ic='target';D.global.played++;D.global.wins++;persist();const winner=G.p2.score[0]===G.p2.score[1]?'Pareggio':(G.p2.score[0]>G.p2.score[1]?'Vince P1':'Vince P2');title=winner;rows=[['Safe P1',G.p2.score[0]],['Safe P2',G.p2.score[1]],['Mine P1',G.p2.hits[0]],['Mine P2',G.p2.hits[1]]];}
   else if(kind==='zen'){stripe='green';ic='zen';title='CAMPO RISOLTO';
     rows=[['Campi Zen',D.modes.zen.done],['XP guadagnati','+'+lastXP,'xp']];}
   else if(kind==='loss'){const s=statFor(G.key);const pct=Math.round(G.revealed/(G.active-G.mines)*100);
@@ -989,7 +1025,7 @@ $('end-menu').addEventListener('click',()=>{$('ov-end').classList.remove('active
 /* ---------------- salvataggio ---------------- */
 function packArr(a){let s='';for(let i=0;i<a.length;i++)s+=a[i];return s;}
 function saveGame(){
-  if(!G||G.state!=='play')return void persist();
+  if(!G||G.state!=='play'||G.mode==='duel')return void persist();
   if(!G.started&&G.mode!=='blitz'&&G.mode!=='surv')return void persist();
   D.save={mode:G.mode,key:G.key,rows:G.rows,cols:G.cols,mines:G.mines,
     mk:packArr(G.mask),m:packArr(G.mine),r:packArr(G.rev),f:packArr(G.flag),
@@ -1093,7 +1129,8 @@ function renderMenu(){
   ensureWorld();
   const sv=D.save;
   $('b-resume').classList.toggle('hidden',!sv);
-  if(sv){const name=sv.mode==='classic'?DIFFS[sv.key].name:(sv.mode==='shapes'?shapeById(sv.key).name:DIFFS[sv.mode].name);let ex='';if(sv.mode==='blitz')ex=' · campo '+(sv.boards+1);if(sv.mode==='surv')ex=' · liv '+sv.level;$('resume-sub').textContent=name+ex+(sv.mode==='zen'?'':' · '+fmtTime(sv.elapsed/1000));}
+  if(sv){const name=sv.mode==='classic'?DIFFS[sv.key].name:(sv.mode==='shapes'?shapeById(sv.key).name:(sv.mode==='story'?('Storia '+sv.key):DIFFS[sv.mode].name));let ex='';if(sv.mode==='story')ex=' · cap '+sv.key;if(sv.mode==='blitz')ex=' · campo '+(sv.boards+1);if(sv.mode==='surv')ex=' · liv '+sv.level;$('resume-sub').textContent=name+ex+(sv.mode==='zen'||sv.mode==='chill'?'':' · '+fmtTime(sv.elapsed/1000));}
+  D.story=D.story||{unlocked:1,stars:{}};$('story-sub').textContent=(Object.keys(D.story.stars).length)+' / '+STORY.length+' capitoli · prossimo '+(D.story.unlocked||1);
   const nShapes=Object.keys(D.shapesDone).length;
   $('shapes-sub').textContent=nShapes?nShapes+' / '+SHAPES.length+' sagome bonificate':'Campi più leggibili: spirale, forte, cuore…';
   const wSeen=Object.keys(W.seen).length,wTotal=WORLD_W*WORLD_H,wFound=Object.keys(W.cache).length;
@@ -1110,6 +1147,9 @@ function renderMenu(){
 $('b-resume').addEventListener('click',()=>{sfx.click();resumeGame();});
 $('b-classic').addEventListener('click',()=>{sfx.click();go('s-diff');});
 $('b-shapes').addEventListener('click',()=>{sfx.click();go('s-shapes');});
+$('b-story').addEventListener('click',()=>{sfx.click();go('s-story');});
+$('b-duel').addEventListener('click',()=>{sfx.click();newGame('duel','duel');});
+$('b-chill').addEventListener('click',()=>{sfx.click();D.settings.theme='cute';applyTheme();persist();newGame('chill','chill');});
 $('b-world').addEventListener('click',()=>{sfx.click();enterWorld();});
 $('b-zen').addEventListener('click',()=>{sfx.click();newGame('zen','zen');});
 $('b-daily').addEventListener('click',()=>{sfx.click();if(D.daily.done[todayStr()]){toast('Già completata in '+fmtTime(D.daily.done[todayStr()])+' — torna domani');return;}newGame('daily','daily');});
@@ -1143,6 +1183,7 @@ document.querySelectorAll('#s-diff .card[data-diff]').forEach(card=>card.addEven
 $('b-custom-start').addEventListener('click',e=>{e.stopPropagation();sfx.click();vib(12);persist();newGame('classic','custom');});
 
 /* ---------------- sagome ---------------- */
+function renderStory(){D.story=D.story||{unlocked:1,stars:{}};$('story-list').innerHTML=STORY.map(lv=>{const locked=lv.id>(D.story.unlocked||1), stars=D.story.stars[lv.id]||0;return `<button class="card ${locked?'locked':''}" data-story="${lv.id}" ${locked?'disabled':''}><h3><span class="diffdot" style="background:var(--amber)"></span>${lv.name}</h3><div class="meta">${lv.rows} × ${lv.cols} · ${lv.mines} mine · ${lv.brief}</div><div class="best">${locked?'🔒':'★'.repeat(stars)||'nuovo'}</div></button>`}).join('');$('story-list').querySelectorAll('[data-story]:not([disabled])').forEach(b=>b.addEventListener('click',()=>{sfx.click();newGame('story',+b.dataset.story);}));}
 function renderShapes(){
   $('shapes-count').textContent=Object.keys(D.shapesDone).length+' / '+SHAPES.length;
   let html='';
@@ -1179,6 +1220,7 @@ function renderStats(){
   const hasC=['easy','medium','hard','daily','custom'].some(k=>D.stats[k]&&D.stats[k].played);
   if(hasC){html+=`<div class="section-label">Classica &amp; giornaliera</div><table class="stats"><tr><th>Livello</th><th>Vinte</th><th>Best</th><th>Media</th><th>Serie</th></tr>`;
     ['easy','medium','hard','daily','custom'].forEach(k=>{const s=D.stats[k];if(!s||!s.played)return;const avg=s.wins?fmtTime(s.winTime/s.wins):'—';html+=`<tr><td>${DIFFS[k].name}</td><td>${s.wins}/${s.played}</td><td>${s.best!=null?fmtTime(s.best):'—'}</td><td>${avg}</td><td>${s.bestStreak}</td></tr>`;});html+=`</table>`;}
+  D.story=D.story||{unlocked:1,stars:{}};$('story-sub').textContent=(Object.keys(D.story.stars).length)+' / '+STORY.length+' capitoli · prossimo '+(D.story.unlocked||1);
   const nShapes=Object.keys(D.shapesDone).length;
   if(nShapes){html+=`<div class="section-label">Sagome · ${nShapes}/${SHAPES.length}</div><table class="stats"><tr><th>Forma</th><th>Miglior tempo</th></tr>`;
     SHAPES.forEach(sh=>{const b=D.shapesDone[sh.id];if(b==null)return;html+=`<tr><td>${sh.name}</td><td>${fmtTime(b)}</td></tr>`;});html+=`</table>`;}
@@ -1199,7 +1241,7 @@ function renderStats(){
 }
 
 /* ---------------- impostazioni ---------------- */
-const THEMES=[{id:'hazard',c:'#f6a821',n:'Hazard'},{id:'reactor',c:'#55e07c',n:'Reattore'},{id:'blueprint',c:'#57b1ff',n:'Blueprint'},{id:'neon',c:'#ff5fa8',n:'Neon'},{id:'ember',c:'#ff8a3d',n:'Brace'}];
+const THEMES=[{id:'cute',c:'#ff79a8',n:'Cute'}, {id:'hazard',c:'#f6a821',n:'Hazard'},{id:'reactor',c:'#55e07c',n:'Reattore'},{id:'blueprint',c:'#57b1ff',n:'Blueprint'},{id:'neon',c:'#ff5fa8',n:'Neon'},{id:'ember',c:'#ff8a3d',n:'Brace'}];
 function applyTheme(){document.body.dataset.theme=D.settings.theme;requestAnimationFrame(()=>{const c=getComputedStyle(document.body).getPropertyValue('--bg').trim();const m=document.querySelector('meta[name=theme-color]');if(m&&c)m.setAttribute('content',c);});}
 function renderSettings(){
   const s=D.settings;
