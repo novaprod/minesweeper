@@ -108,6 +108,13 @@ svg{display:block}
 .mi:active{transform:scale(.95)}
 .mi .ic{width:21px;height:21px;color:var(--txt)}
 .menu-foot{font-family:var(--mono);font-size:11px;color:color-mix(in srgb,var(--mut) 60%,transparent);text-align:center;letter-spacing:.05em;margin-top:16px;position:relative;z-index:1}
+.menu-brief{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}
+.brief-card{background:linear-gradient(145deg,var(--panel),color-mix(in srgb,var(--amber) 8%,var(--panel2)));border:1px solid var(--line);border-radius:14px;padding:12px;min-height:78px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}
+.brief-card::after{content:"";position:absolute;right:-22px;bottom:-22px;width:70px;height:70px;border-radius:50%;background:var(--amber);opacity:.08}
+.brief-card b{font-size:18px;color:var(--amber);font-family:var(--mono)}
+.brief-card span{font-size:11px;line-height:1.35;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+.btn.openworld{border-color:var(--amber-dk);background:linear-gradient(120deg,color-mix(in srgb,var(--amber) 18%,var(--panel)),var(--panel) 62%)}
+.btn.openworld::before{content:"NEW";position:absolute;right:12px;top:10px;font-family:var(--mono);font-size:9px;color:#131313;background:var(--amber);padding:3px 6px;border-radius:99px;font-weight:900}
 
 /* carte / picker */
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
@@ -191,6 +198,25 @@ input[type=range]{flex:1;accent-color:var(--amber);height:28px}
 .mode-half{flex:1;padding:12px 6px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:15px;font-weight:800;color:var(--mut);letter-spacing:.03em;transition:background .12s,color .12s}
 .mode-half .ic{width:19px;height:19px}
 .mode-half.on{background:var(--amber);color:#131313}
+
+/* open world */
+.world-shell{flex:1;display:flex;flex-direction:column;min-height:0}
+.world-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px;background:var(--panel);border-bottom:1px solid var(--line)}
+.world-stat{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:8px;text-align:center}
+.world-stat b{display:block;font-family:var(--mono);font-size:18px;color:var(--amber)}
+.world-stat span{font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
+.world-map-wrap{flex:1;overflow:auto;padding:14px;display:flex}
+.world-map{margin:auto;display:grid;grid-template-columns:repeat(18,28px);grid-auto-rows:28px;gap:3px}
+.wtile{border-radius:7px;background:#0c0e13;border:1px solid #202630;display:flex;align-items:center;justify-content:center;font-size:15px;position:relative;color:var(--mut)}
+.wtile.seen{background:linear-gradient(160deg,var(--cell-a),var(--cell-b));border-color:var(--cell-br);color:var(--txt)}
+.wtile.fog{background:#08090c;border-color:#151922;color:transparent}
+.wtile.player{outline:2px solid var(--amber);box-shadow:0 0 16px color-mix(in srgb,var(--amber) 60%,transparent);z-index:1}
+.wtile.minezone{color:#ff8f93}.wtile.cache{color:var(--amber)}.wtile.base{color:var(--green)}.wtile.ruin{color:var(--blue)}
+.world-controls{display:grid;grid-template-columns:56px 56px 56px;grid-template-rows:44px 44px 44px;gap:8px;justify-content:center;padding:12px 14px calc(14px + var(--sab));background:var(--panel);border-top:1px solid var(--line)}
+.wctrl{border:1px solid var(--line);background:var(--panel2);border-radius:12px;font-weight:900;color:var(--txt)}
+.wctrl:active{transform:scale(.94);background:var(--amber);color:#131313}
+.wctrl.up{grid-column:2}.wctrl.left{grid-column:1;grid-row:2}.wctrl.scan{grid-column:2;grid-row:2;color:var(--amber)}.wctrl.right{grid-column:3;grid-row:2}.wctrl.down{grid-column:2;grid-row:3}
+.world-log{font-size:12px;line-height:1.45;color:var(--mut);padding:9px 14px;background:var(--panel2);border-top:1px solid var(--line);min-height:48px}
 
 /* flash centrale */
 #flash{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:35;opacity:0}
@@ -288,10 +314,12 @@ table.stats td:first-child{font-family:inherit;font-weight:700}
       <div class="rk-bar"><i id="rk-bar"></i></div>
     </div>
   </div>
+  <div class="menu-brief"><div class="brief-card"><b id="brief-rank">0 XP</b><span>progressione, record e obiettivi</span></div><div class="brief-card"><b id="brief-world">0%</b><span>mappa open world esplorata</span></div></div>
   <div class="menu-btns">
     <button class="btn resume hidden" id="b-resume"><span class="bico" data-ic="play"></span><span class="bt">Riprendi partita<span class="sub" id="resume-sub"></span></span></button>
     <button class="btn primary" id="b-classic"><span class="bico" data-ic="dig"></span><span class="bt">Classica<span class="sub">Facile · Medio · Difficile · Custom</span></span><span class="chev" data-ic="chev"></span></button>
-    <button class="btn" id="b-shapes"><span class="bico" data-ic="shapes"></span><span class="bt">Sagome<span class="sub" id="shapes-sub">Campi a forma di cuore, anello, croce…</span></span><span class="chev" data-ic="chev"></span></button>
+    <button class="btn" id="b-shapes"><span class="bico" data-ic="shapes"></span><span class="bt">Sagome<span class="sub" id="shapes-sub">Campi più leggibili: spirale, forte, cuore…</span></span><span class="chev" data-ic="chev"></span></button>
+    <button class="btn openworld" id="b-world"><span class="bico" data-ic="scope"></span><span class="bt">Open World<span class="sub" id="world-sub">Esplora la zona, scopri settori e recupera cache</span></span><span class="chev" data-ic="chev"></span></button>
     <button class="btn" id="b-blitz"><span class="bico" data-ic="bolt"></span><span class="bt">Blitz<span class="sub" id="blitz-sub">Quanti campi bonifichi in 3 minuti?</span></span></button>
     <button class="btn" id="b-surv"><span class="bico" data-ic="shield"></span><span class="bt">Sopravvivenza<span class="sub" id="surv-sub">Livelli infiniti · 3 vite</span></span></button>
     <button class="btn" id="b-zen"><span class="bico" data-ic="zen"></span><span class="bt">Zen<span class="sub">Niente cronometro, impossibile perdere</span></span></button>
@@ -329,6 +357,17 @@ table.stats td:first-child{font-family:inherit;font-weight:700}
   <div class="scroll">
     <div class="section-label">Bonificate <b id="shapes-count"></b></div>
     <div class="shape-grid" id="shape-grid"></div>
+  </div>
+</div>
+
+<!-- ================= OPEN WORLD ================= -->
+<div class="screen" id="s-world">
+  <div class="topbar"><button class="icon-btn back" data-ic="back"></button><h2>Open World</h2><button class="icon-btn" id="w-reset" data-ic="restart"></button></div>
+  <div class="world-shell">
+    <div class="world-stats"><div class="world-stat"><b id="w-explore">0%</b><span>Esplorato</span></div><div class="world-stat"><b id="w-cache">0/0</b><span>Cache</span></div><div class="world-stat"><b id="w-danger">0</b><span>Pericolo</span></div></div>
+    <div class="world-map-wrap"><div class="world-map" id="world-map"></div></div>
+    <div class="world-log" id="world-log">Muoviti nella zona contaminata. Le caselle vicine si rivelano mentre esplori.</div>
+    <div class="world-controls"><button class="wctrl up" data-move="0,-1">▲</button><button class="wctrl left" data-move="-1,0">◀</button><button class="wctrl scan" id="w-scan">SCAN</button><button class="wctrl right" data-move="1,0">▶</button><button class="wctrl down" data-move="0,1">▼</button></div>
   </div>
 </div>
 
@@ -491,7 +530,7 @@ function defaultData(){return{
   stats:{}, modes:{blitz:{runs:0,best:0,boards:0},surv:{runs:0,best:0},zen:{done:0}},
   global:{revealed:0,flags:0,exploded:0,played:0,wins:0,time:0},
   xp:0, ach:{}, shapesDone:{}, daily:{done:{}},
-  custom:{rows:12,cols:10,mines:20}, save:null
+  custom:{rows:12,cols:10,mines:20}, world:null, save:null
 };}
 let D=defaultData();
 try{
@@ -585,10 +624,11 @@ function shapeMask(fn){
 const SHAPES=[
   {id:'diamante',name:'Diamante',R:13,C:13,ratio:.16,fn:(x,y)=>Math.abs(x)+Math.abs(y)<=1.03},
   {id:'cerchio',name:'Cerchio',R:13,C:13,ratio:.16,fn:(x,y)=>x*x+y*y<=1.05},
-  {id:'cuore',name:'Cuore',R:13,C:13,ratio:.15,fn:(x,y)=>{const X=x*1.2,Y=-y*.95+.30,f=X*X+Y*Y-1;return f*f*f-X*X*Y*Y*Y<=0;}},
-  {id:'anello',name:'Anello',R:14,C:14,ratio:.17,fn:(x,y)=>{const d=x*x+y*y;return d<=1.05&&d>=.30;}},
+  {id:'cuore',name:'Cuore',R:15,C:15,ratio:.15,fn:(x,y)=>{const X=x*1.18,Y=-y*.92+.28,f=X*X+Y*Y-1;return f*f*f-X*X*Y*Y*Y<=0;}},
+  {id:'spirale',name:'Spirale',R:15,C:15,ratio:.15,fn:(x,y)=>{const d=Math.sqrt(x*x+y*y),a=Math.atan2(y,x);return d<.95&&Math.abs(((a+d*7)%(Math.PI*2))-Math.PI)<1.05;}},
+  {id:'forte',name:'Forte',R:15,C:15,ratio:.17,fn:(x,y)=>Math.max(Math.abs(x),Math.abs(y))<.95&&(Math.max(Math.abs(x),Math.abs(y))>.42||Math.abs(x)<.22||Math.abs(y)<.22)},
   {id:'croce',name:'Croce',R:13,C:13,ratio:.16,fn:(x,y)=>Math.abs(x)<=.32||Math.abs(y)<=.32},
-  {id:'esagono',name:'Esagono',R:13,C:13,ratio:.17,fn:(x,y)=>{const ax=Math.abs(x),ay=Math.abs(y);return ay<=1&&ax*.5+ay*.5<=.78&&ax<=1.02;}},
+  {id:'esagono',name:'Esagono',R:13,C:13,ratio:.17,fn:(x,y)=>{const ax=Math.abs(x),ay=Math.abs(y);return ay<=1&&ax*.55+ay*.5<=.82&&ax<=1.02;}},
   {id:'triangolo',name:'Triangolo',R:13,C:14,ratio:.15,fn:(x,y)=>y<=1&&y>=-1&&Math.abs(x)<=(y+1)/2+.06},
   {id:'clessidra',name:'Clessidra',R:13,C:13,ratio:.15,fn:(x,y)=>Math.abs(x)<=Math.abs(y)*.95+.12}
 ];
@@ -644,7 +684,7 @@ function toast(txt){const t=document.createElement('div');t.className='toast';t.
 function flash(main,small){$('flash-txt').innerHTML=main+(small?'<small>'+small+'</small>':'');const f=$('flash');f.classList.remove('on');void f.offsetWidth;f.classList.add('on');}
 
 /* ---------------- NAVIGAZIONE ---------------- */
-function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));if(id==='s-menu')renderMenu();if(id==='s-diff')renderDiff();if(id==='s-shapes')renderShapes();if(id==='s-stats')renderStats();if(id==='s-set')renderSettings();}
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));if(id==='s-menu')renderMenu();if(id==='s-diff')renderDiff();if(id==='s-shapes')renderShapes();if(id==='s-stats')renderStats();if(id==='s-set')renderSettings();if(id==='s-world')renderWorld();}
 document.querySelectorAll('.back').forEach(b=>b.addEventListener('click',()=>{sfx.click();go('s-menu');}));
 
 /* ---------------- CONFERMA ---------------- */
@@ -1005,6 +1045,19 @@ $('g-restart').addEventListener('click',()=>{
 });
 $('g-back').addEventListener('click',()=>{sfx.click();if(G&&G.state==='play'){pauseTimer();saveGame();if(D.save)toast('Partita salvata');}go('s-menu');});
 
+
+/* ---------------- open world ---------------- */
+const WORLD_W=18,WORLD_H=18;
+let W=null;
+function defaultWorld(){return{x:9,y:9,seen:{},cache:{},danger:0,steps:0,seed:hashStr('world-v1')}}
+function wKey(x,y){return x+','+y;}
+function wTile(x,y){const r=mulberry32(hashStr('w:'+x+','+y+':'+(W?W.seed:1)))();if(x===9&&y===9)return'base';if(r<.08)return'minezone';if(r<.14)return'cache';if(r<.22)return'ruin';if(r<.36)return'forest';return'plain';}
+function ensureWorld(){W=D.world||defaultWorld();revealAround(W.x,W.y,1);D.world=W;persist();}
+function revealAround(x,y,rad){for(let yy=y-rad;yy<=y+rad;yy++)for(let xx=x-rad;xx<=x+rad;xx++)if(xx>=0&&yy>=0&&xx<WORLD_W&&yy<WORLD_H)W.seen[wKey(xx,yy)]=1;}
+function renderWorld(){ensureWorld();const m=$('world-map');let html='';let seen=0,total=WORLD_W*WORLD_H,caches=0,found=Object.keys(W.cache).length;for(let y=0;y<WORLD_H;y++)for(let x=0;x<WORLD_W;x++){const k=wKey(x,y),isSeen=!!W.seen[k],t=wTile(x,y);if(isSeen)seen++;if(t==='cache')caches++;let sym={base:'⌂',minezone:'✹',cache:'◆',ruin:'⌁',forest:'♣',plain:'·'}[t];html+=`<div class="wtile ${isSeen?'seen '+t:'fog'} ${x===W.x&&y===W.y?'player':''}">${isSeen?sym:''}</div>`;}m.innerHTML=html;$('w-explore').textContent=Math.round(seen/total*100)+'%';$('w-cache').textContent=found+'/'+caches;$('w-danger').textContent=W.danger;$('brief-world')&&($('brief-world').textContent=Math.round(seen/total*100)+'%');$('world-sub')&&($('world-sub').textContent=`${Math.round(seen/total*100)}% esplorato · ${found}/${caches} cache`);}
+function enterWorld(){ensureWorld();go('s-world');renderWorld();}
+function worldMove(dx,dy){ensureWorld();const nx=Math.max(0,Math.min(WORLD_W-1,W.x+dx)),ny=Math.max(0,Math.min(WORLD_H-1,W.y+dy));if(nx===W.x&&ny===W.y)return;W.x=nx;W.y=ny;W.steps++;revealAround(nx,ny,1);const t=wTile(nx,ny),k=wKey(nx,ny);let msg='Settore esplorato.';if(t==='cache'&&!W.cache[k]){W.cache[k]=1;awardXP(10,'cache');msg='Cache recuperata: +10 XP e nuove coordinate segnate.';sfx.win();}else if(t==='minezone'){W.danger++;msg='Zona minata: rumori sotto la sabbia. Pericolo +1.';sfx.nope();vib(35);}else if(t==='ruin')msg='Rovine trovate: vecchi cartelli indicano una via sicura.';else if(t==='base')msg='Sei tornato alla base operativa.';else if(t==='forest')msg='Area coperta: visibilità ridotta, procedi piano.';$('world-log').textContent=msg;D.world=W;persist();renderWorld();}
+function worldScan(){ensureWorld();revealAround(W.x,W.y,2);W.danger=Math.max(0,W.danger-1);$('world-log').textContent='Scanner attivo: nebbia diradata in un raggio più ampio.';sfx.sonar();D.world=W;persist();renderWorld();}
 /* ============================================================
    SCHERMATE
    ============================================================ */
@@ -1015,11 +1068,16 @@ function renderMenu(){
   $('rk-name').textContent=ri.name;
   $('rk-xp').textContent=ri.max?D.xp+' XP · max':(ri.into+' / '+ri.span+' XP');
   $('rk-bar').style.width=ri.pct+'%';
+  $('brief-rank').textContent=D.xp+' XP';
+  ensureWorld();
   const sv=D.save;
   $('b-resume').classList.toggle('hidden',!sv);
   if(sv){const name=sv.mode==='classic'?DIFFS[sv.key].name:(sv.mode==='shapes'?shapeById(sv.key).name:DIFFS[sv.mode].name);let ex='';if(sv.mode==='blitz')ex=' · campo '+(sv.boards+1);if(sv.mode==='surv')ex=' · liv '+sv.level;$('resume-sub').textContent=name+ex+(sv.mode==='zen'?'':' · '+fmtTime(sv.elapsed/1000));}
   const nShapes=Object.keys(D.shapesDone).length;
-  $('shapes-sub').textContent=nShapes?nShapes+' / '+SHAPES.length+' sagome bonificate':'Campi a forma di cuore, anello, croce…';
+  $('shapes-sub').textContent=nShapes?nShapes+' / '+SHAPES.length+' sagome bonificate':'Campi più leggibili: spirale, forte, cuore…';
+  const wSeen=Object.keys(W.seen).length,wTotal=WORLD_W*WORLD_H,wFound=Object.keys(W.cache).length;
+  $('brief-world').textContent=Math.round(wSeen/wTotal*100)+'%';
+  $('world-sub').textContent=Math.round(wSeen/wTotal*100)+'% esplorato · '+wFound+' cache';
   const doneToday=!!D.daily.done[todayStr()],streak=dailyStreak();
   $('daily-sub').textContent=doneToday?('Completata oggi'+(streak>1?' · serie di '+streak:'')):(streak>0?'Serie di '+streak+' — non spezzarla':'Un campo nuovo ogni giorno');
   if(D.modes.blitz.best)$('blitz-sub').textContent='Record: '+D.modes.blitz.best+' campi in 3 minuti';
@@ -1031,6 +1089,7 @@ function renderMenu(){
 $('b-resume').addEventListener('click',()=>{sfx.click();resumeGame();});
 $('b-classic').addEventListener('click',()=>{sfx.click();go('s-diff');});
 $('b-shapes').addEventListener('click',()=>{sfx.click();go('s-shapes');});
+$('b-world').addEventListener('click',()=>{sfx.click();enterWorld();});
 $('b-zen').addEventListener('click',()=>{sfx.click();newGame('zen','zen');});
 $('b-daily').addEventListener('click',()=>{sfx.click();if(D.daily.done[todayStr()]){toast('Già completata in '+fmtTime(D.daily.done[todayStr()])+' — torna domani');return;}newGame('daily','daily');});
 $('mi-stats').addEventListener('click',()=>{sfx.click();go('s-stats');});
@@ -1146,6 +1205,11 @@ function renderSettings(){
   $('b-import').addEventListener('click',()=>{const raw=prompt('Incolla qui il backup:');if(!raw)return;try{const p=JSON.parse(raw);if(!p.settings||!p.global)throw 0;D=Object.assign(defaultData(),p);D.modes=Object.assign(defaultData().modes,p.modes||{});persist();applyTheme();renderSettings();toast('Dati importati');}catch(e){toast('Backup non valido');}});
   $('b-wipe').addEventListener('click',()=>{confirmBox('Cancellare tutto?','Statistiche, XP, obiettivi, impostazioni e partite salvate. Non si torna indietro.',()=>{try{localStorage.removeItem(KEY);}catch(e){}D=defaultData();persist();applyTheme();renderSettings();toast('Tutto cancellato');},'Cancella');});
 }
+
+document.querySelectorAll('.world-controls [data-move]').forEach(b=>b.addEventListener('click',()=>{const [dx,dy]=b.dataset.move.split(',').map(Number);worldMove(dx,dy);}));
+$('w-scan').addEventListener('click',worldScan);
+$('w-reset').addEventListener('click',()=>confirmBox('Resettare la mappa?','Perderai esplorazione, cache e pericolo della modalità open world.',()=>{D.world=defaultWorld();W=D.world;persist();renderWorld();toast('Mappa rigenerata');},'Reset'));
+window.addEventListener('keydown',e=>{if(!$('s-world').classList.contains('active'))return;const m={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]}[e.key];if(m){e.preventDefault();worldMove(m[0],m[1]);}});
 
 /* ---------------- avvio ---------------- */
 window.addEventListener('pagehide',()=>{if(G&&G.state==='play'){pauseTimer();saveGame();}});
